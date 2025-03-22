@@ -6,16 +6,23 @@ import { useLanguage } from '../contexts/LanguageContext';
 // Ajustar as chaves para plural
 const formatOptions = {
   images: ['PNG', 'JPEG', 'WEBP', 'GIF', 'SVG', 'TIFF', 'BMP', 'ICO', 'HEIC'],
-  audio: ['MP3', 'WAV', 'OGG', 'M4A', 'FLAC', 'AAC', 'WMA', 'AIFF'], // Já está correto
+  audio: ['MP3', 'WAV', 'OGG', 'M4A', 'FLAC', 'AAC', 'WMA', 'AIFF'],
   documents: ['PDF', 'DOCX', 'DOC', 'TXT', 'RTF', 'ODT', 'PAGES', 'EPUB', 'MOBI', 'FB2', 'HTML', 'MD'],
-  video: ['MP4', 'AVI', 'MKV', 'MOV', 'WMV', 'FLV', 'WEBM', 'M4V', '3GP'], // Já está correto
-  code: ['JSON', 'XML', 'YAML', 'CSV', 'SQL', 'HTML', 'JS', 'TS', 'PY', 'JAVA', 'CPP', 'CS'], // Já está correto
-  spreadsheet: ['XLSX', 'XLS', 'CSV', 'ODS', 'NUMBERS', 'TSV'], // Já está correto
-  archive: ['ZIP', 'RAR', '7Z', 'TAR', 'GZ', 'BZ2', 'XZ'], // Já está correto
+  video: ['MP4', 'AVI', 'MKV', 'MOV', 'WMV', 'FLV', 'WEBM', 'M4V', '3GP'],
+  code: ['JSON', 'XML', 'YAML', 'CSV', 'SQL', 'HTML', 'JS', 'TS', 'PY', 'JAVA', 'CPP', 'CS'],
+  spreadsheet: ['XLSX', 'XLS', 'CSV', 'ODS', 'NUMBERS', 'TSV'],
+  archive: ['ZIP', 'RAR', '7Z', 'TAR', 'GZ', 'BZ2', 'XZ'],
 } as const;
 
 type FileType = keyof typeof formatOptions;
 type FileStatus = 'idle' | 'converting' | 'done' | 'error';
+
+// Função para validar o tipo de arquivo
+const isValidFileType = (file: File, type: FileType) => {
+  const validExtensions = formatOptions[type].map(ext => ext.toLowerCase());
+  const fileExtension = file.name.split('.').pop()?.toLowerCase();
+  return fileExtension && validExtensions.includes(fileExtension);
+};
 
 export function ConvertPage() {
   const { type } = useParams<{ type: string }>();
@@ -26,15 +33,31 @@ export function ConvertPage() {
   const [status, setStatus] = useState<FileStatus>('idle');
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
+  // Declare validType uma única vez
+  const validType = type && type in formatOptions ? type as FileType : null;
+
+  // Verifique se validType é nulo
+  if (!validType) {
+    return <div className="text-center text-red-600">{t.invalidConversionType || 'Invalid conversion type'}</div>;
+  }
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file) setSelectedFile(file);
-  }, []);
+    if (file && validType && isValidFileType(file, validType)) {
+      setSelectedFile(file);
+    } else {
+      alert(t.invalidFileType || 'Invalid file type for this conversion.');
+    }
+  }, [t, validType]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setSelectedFile(file);
+    if (file && validType && isValidFileType(file, validType)) {
+      setSelectedFile(file);
+    } else {
+      alert(t.invalidFileType || 'Invalid file type for this conversion.');
+    }
   };
 
   const handleConvert = () => {
@@ -65,11 +88,6 @@ export function ConvertPage() {
       return () => URL.revokeObjectURL(downloadUrl);
     }
   }, [status, downloadUrl, selectedFile, targetFormat]);
-
-  const validType = type && type in formatOptions ? type as FileType : null;
-  if (!validType) {
-    return <div className="text-center text-red-600">{t.invalidConversionType || 'Invalid conversion type'}</div>;
-  }
 
   const getTitle = () => {
     switch (validType) {

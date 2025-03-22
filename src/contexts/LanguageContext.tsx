@@ -26,6 +26,8 @@ const translations = {
     downloadFile: 'Download File',
     invalidConversionType: 'Invalid conversion type',
     conversionFailed: 'Conversion failed. Please try again.',
+    // Outras traduções...
+    invalidFileType: 'Invalid file type for this conversion.',
   },
   pt: {
     title: 'FileFlow',
@@ -52,6 +54,8 @@ const translations = {
     downloadFile: 'Baixar Arquivo',
     invalidConversionType: 'Tipo de conversão inválido',
     conversionFailed: 'Falha na conversão. Por favor, tente novamente.',
+    // Outras traduções...
+    invalidFileType: 'Tipo de arquivo inválido para esta conversão.',
   },
 };
 
