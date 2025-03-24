@@ -104,83 +104,83 @@ export function ConvertPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">{getTitle()}</h1>
-        <div
-          className="border-2 border-dashed border-gray-300 rounded-lg p-8 mb-8 text-center"
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={handleDrop}
+  <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-4 md:p-8">
+    <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">{getTitle()}</h1>
+    <div
+      className="border-2 border-dashed border-gray-300 rounded-lg p-4 md:p-8 mb-4 md:mb-8 text-center"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDrop}
+    >
+      <input
+        type="file"
+        id="file-input"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+      <label
+        htmlFor="file-input"
+        className="cursor-pointer flex flex-col items-center"
+      >
+        <FileUp className="w-8 h-8 md:w-12 md:h-12 text-gray-400 mb-2 md:mb-4" />
+        <p className="text-sm md:text-base text-gray-600 mb-1 md:mb-2">{t.dragDrop}</p>
+        <p className="text-xs md:text-sm text-gray-500">
+          {selectedFile ? selectedFile.name : t.noFileSelected}
+        </p>
+      </label>
+    </div>
+    <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-8">
+      <div className="w-full md:flex-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">
+          {t.convertTo}
+        </label>
+        <select
+          className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm md:text-base"
+          value={targetFormat}
+          onChange={(e) => setTargetFormat(e.target.value)}
         >
-          <input
-            type="file"
-            id="file-input"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-          <label
-            htmlFor="file-input"
-            className="cursor-pointer flex flex-col items-center"
-          >
-            <FileUp className="w-12 h-12 text-gray-400 mb-4" />
-            <p className="text-gray-600 mb-2">{t.dragDrop}</p>
-            <p className="text-sm text-gray-500">
-              {selectedFile ? selectedFile.name : t.noFileSelected}
-            </p>
-          </label>
-        </div>
-        <div className="flex items-center gap-4 mb-8">
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t.convertTo}
-            </label>
-            <select
-              className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              value={targetFormat}
-              onChange={(e) => setTargetFormat(e.target.value)}
-            >
-              <option value="">{t.selectFormat}</option>
-              {formatOptions[validType].map((format) => (
-                <option key={format} value={format}>
-                  {format}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex-1">
-            <button
-              onClick={handleConvert}
-              disabled={!selectedFile || !targetFormat || status === 'converting'}
-              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {status === 'converting' ? (
-                <span className="flex items-center justify-center">
-                  <span className="mr-2">⏳</span> {t.converting}
-                </span>
-              ) : (
-                t.convert
-              )}
-            </button>
-          </div>
-        </div>
-        {status === 'done' && downloadUrl && (
-          <div className="text-center mt-8">
-            <FileDown className="w-12 h-12 text-indigo-600 mx-auto mb-4" />
-            <p className="text-xl font-semibold text-gray-900">{t.conversionComplete}</p>
-            <a
-              href={downloadUrl}
-              download={`${selectedFile?.name.split('.')[0] || 'converted'}.${targetFormat.toLowerCase()}`}
-              className="mt-4 inline-block bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
-            >
-              ⬇️ {t.downloadFile}
-            </a>
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="text-center mt-8 text-red-600">
-            <p>{t.conversionFailed || 'Conversion failed. Please try again.'}</p>
-          </div>
-        )}
+          <option value="">{t.selectFormat}</option>
+          {formatOptions[validType].map((format) => (
+            <option key={format} value={format}>
+              {format}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="w-full md:flex-1">
+        <button
+          onClick={handleConvert}
+          disabled={!selectedFile || !targetFormat || status === 'converting'}
+          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base"
+        >
+          {status === 'converting' ? (
+            <span className="flex items-center justify-center">
+              <span className="mr-2">⏳</span> {t.converting}
+            </span>
+          ) : (
+            t.convert
+          )}
+        </button>
       </div>
     </div>
+    {status === 'done' && downloadUrl && (
+      <div className="text-center mt-4 md:mt-8">
+        <FileDown className="w-8 h-8 md:w-12 md:h-12 text-indigo-600 mx-auto mb-2 md:mb-4" />
+        <p className="text-lg md:text-xl font-semibold text-gray-900">{t.conversionComplete}</p>
+        <a
+          href={downloadUrl}
+          download={`${selectedFile?.name.split('.')[0] || 'converted'}.${targetFormat.toLowerCase()}`}
+          className="mt-2 md:mt-4 inline-block bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm md:text-base"
+        >
+          ⬇️ {t.downloadFile}
+        </a>
+      </div>
+    )}
+    {status === 'error' && (
+      <div className="text-center mt-4 md:mt-8 text-red-600">
+        <p>{t.conversionFailed || 'Conversion failed. Please try again.'}</p>
+      </div>
+    )}
+  </div>
+</div>
   );
 }
