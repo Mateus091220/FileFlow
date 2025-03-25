@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FileUp, FileDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import Footer from '../components/Footer';
+import Header from '../components/Header'; // Importe o Header
 
 // Ajustar as chaves para plural
 const formatOptions = {
@@ -102,6 +103,9 @@ export function ConvertPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Adicionando o Header */}
+      <Header />
+
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-4 md:p-8">
         <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">{getTitle()}</h1>
         <div
