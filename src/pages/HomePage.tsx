@@ -4,7 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { 
   ImageIcon, MusicIcon, FileTextIcon, 
   VideoIcon, CodeIcon, TableIcon, 
-  ArchiveIcon, ChevronRightIcon 
+  ArchiveIcon, ChevronRightIcon, GlobeIcon 
 } from 'lucide-react';
 
 const HomePage: React.FC = () => {
@@ -13,32 +13,36 @@ const HomePage: React.FC = () => {
 
   // Tipos de conversão disponíveis
   const conversionTypes = [
-    { id: 'images', icon: <ImageIcon className="w-8 h-8" />, label: t.images },
-    { id: 'audio', icon: <MusicIcon className="w-8 h-8" />, label: t.audio },
-    { id: 'documents', icon: <FileTextIcon className="w-8 h-8" />, label: t.documents },
-    { id: 'video', icon: <VideoIcon className="w-8 h-8" />, label: t.video },
-    { id: 'code', icon: <CodeIcon className="w-8 h-8" />, label: t.code },
-    { id: 'spreadsheet', icon: <TableIcon className="w-8 h-8" />, label: t.spreadsheet },
-    { id: 'archive', icon: <ArchiveIcon className="w-8 h-8" />, label: t.archive },
+    { id: 'images', icon: <ImageIcon className="w-6 h-6" />, label: t.images },
+    { id: 'audio', icon: <MusicIcon className="w-6 h-6" />, label: t.audio },
+    { id: 'documents', icon: <FileTextIcon className="w-6 h-6" />, label: t.documents },
+    { id: 'video', icon: <VideoIcon className="w-6 h-6" />, label: t.video },
+    { id: 'code', icon: <CodeIcon className="w-6 h-6" />, label: t.code },
+    { id: 'spreadsheet', icon: <TableIcon className="w-6 h-6" />, label: t.spreadsheet },
+    { id: 'archive', icon: <ArchiveIcon className="w-6 h-6" />, label: t.archive },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100 flex flex-col">
+      
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-indigo-600">FileFlow</h1>
+
+          {/* Botão de troca de idioma */}
           <button 
-              onClick={toggleLanguage}
-            className="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200"
+            onClick={toggleLanguage}
+            className="flex items-center px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200"
           >
-              {language === 'en' ? 'PT' : 'EN'}
+            <GlobeIcon className="w-4 h-4 mr-2" />
+            {language === 'en' ? 'Português' : 'English'}
           </button>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 text-center">
+      <section className="container mx-auto px-4 py-16 text-center flex-grow">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           {t.heroTitle}
         </h1>
@@ -75,11 +79,28 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Rodapé */}
-      <footer className="bg-white py-8 mt-12">
+      <footer className="bg-white py-8 mt-12 shadow-inner">
         <div className="container mx-auto px-4 text-center text-gray-500">
           <p>© {new Date().getFullYear()} FileFlow. {t.rightsReserved || 'All rights reserved.'}</p>
+
+          {/* Lista de conversões disponíveis */}
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-gray-700">{t.supportedFormats}</h3>
+            <div className="flex flex-wrap justify-center gap-4 mt-2 text-sm text-indigo-600">
+              {conversionTypes.map((item) => (
+                <button 
+                  key={item.id} 
+                  onClick={() => navigate(`/convert/${item.id}`)}
+                  className="hover:underline"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
+      
     </div>
   );
 };
