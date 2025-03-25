@@ -28,6 +28,7 @@ const translations = {
     conversionFailed: 'Conversion failed. Please try again.',
     // Outras traduções...
     invalidFileType: 'Invalid file type for this conversion.',
+    rightsReserved: 'All rights reserved.', // ✅ Adicionado
   },
   pt: {
     title: 'FileFlow',
@@ -56,6 +57,7 @@ const translations = {
     conversionFailed: 'Falha na conversão. Por favor, tente novamente.',
     // Outras traduções...
     invalidFileType: 'Tipo de arquivo inválido para esta conversão.',
+    rightsReserved: 'Todos os direitos reservados.', // ✅ Adicionado
   },
 };
 
