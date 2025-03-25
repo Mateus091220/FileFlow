@@ -14,8 +14,8 @@ const Header: React.FC = () => {
           onClick={toggleLanguage}
           className="flex items-center px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200"
         >
-          {language === 'en' ? t.portuguese : t.english}  {/* Usando a chave para a tradução */}
-        </button>
+          {language === 'en' ? 'Português' : 'English'}  {/* Exibindo texto fixo para alternar entre os idiomas */}
+          </button>
       </div>
     </header>
   );
