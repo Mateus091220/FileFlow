@@ -7,7 +7,6 @@ import {
   VideoIcon, CodeIcon, TableIcon, 
   ArchiveIcon, ChevronRightIcon, GlobeIcon 
 } from 'lucide-react';
-import Header from '../components/Header';
 
 const HomePage: React.FC = () => {
   const { t, toggleLanguage, language } = useLanguage();
@@ -26,7 +25,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100 flex flex-col">
-      {/* Header */}
+      {/* Header (sem Header.tsx agora) */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-indigo-600">FileFlow</h1>
