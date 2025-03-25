@@ -32,7 +32,7 @@ const HomePage: React.FC = () => {
               onClick={toggleLanguage}
             className="px-4 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200"
           >
-              {language === 'en' ? 'PT' : 'EN'} // ✅ Agora está correto
+              {language === 'en' ? 'PT' : 'EN'}
           </button>
         </div>
       </header>
