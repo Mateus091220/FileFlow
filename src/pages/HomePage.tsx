@@ -25,9 +25,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100 flex flex-col">
-      {/* Header */}
+      {/* Header com logo estilizado */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          {/* Logotipo Personalizado */}
+          <img src="path/to/your/custom-logo.svg" alt="FileFlow Logo" className="h-12" />
+          
           {/* Botão de troca de idioma */}
           <button 
             onClick={toggleLanguage}
@@ -55,19 +58,21 @@ const HomePage: React.FC = () => {
         </button>
       </section>
 
-      {/* Explicação sobre o FileFlow */}
-      <section className="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">O que é o FileFlow?</h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-          O <strong>FileFlow</strong> é uma ferramenta online simples e rápida para converter imagens, vídeos e outros formatos de arquivo. Com apenas alguns cliques, você pode transformar seus arquivos sem precisar instalar nada.
+      {/* Seção de Explicação Sobre o Serviço */}
+      <section className="bg-indigo-50 py-16 text-center">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+          Transforme Seus Arquivos com Facilidade!
+        </h2>
+        <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
+          O <strong>FileFlow</strong> permite que você converta seus arquivos rapidamente e sem complicação. De imagens e vídeos a documentos e áudios, nós tornamos o processo simples, eficiente e rápido. 
+          Experimente agora e descubra como transformar seus arquivos em segundos!
         </p>
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">Formatos Suportados:</h3>
-        <p className="text-gray-700">
-          ✅ <strong>Imagens:</strong> JPG, PNG, WEBP, GIF <br />
-          ✅ <strong>Vídeos:</strong> MP4, AVI, MOV, WEBM <br />
-          ✅ <strong>Áudio:</strong> MP3, WAV, OGG <br />
-          ✅ <strong>Documentos:</strong> PDF, DOCX, TXT <br />
-        </p>
+        <button
+          onClick={() => navigate('/convert/images')}
+          className="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+        >
+          Comece Agora!
+        </button>
       </section>
 
       {/* Seção de Conversão */}
@@ -91,9 +96,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Rodapé */}
+      {/* Rodapé Importado */}
       <Footer />
-      
     </div>
   );
 };
