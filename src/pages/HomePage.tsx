@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100 flex flex-col">
-      {/* Header (sem Header.tsx agora) */}
+      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           {/* Botão de troca de idioma */}
@@ -55,6 +55,21 @@ const HomePage: React.FC = () => {
         </button>
       </section>
 
+      {/* Explicação sobre o FileFlow */}
+      <section className="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md text-center">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">O que é o FileFlow?</h2>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
+          O <strong>FileFlow</strong> é uma ferramenta online simples e rápida para converter imagens, vídeos e outros formatos de arquivo. Com apenas alguns cliques, você pode transformar seus arquivos sem precisar instalar nada.
+        </p>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">Formatos Suportados:</h3>
+        <p className="text-gray-700">
+          ✅ <strong>Imagens:</strong> JPG, PNG, WEBP, GIF <br />
+          ✅ <strong>Vídeos:</strong> MP4, AVI, MOV, WEBM <br />
+          ✅ <strong>Áudio:</strong> MP3, WAV, OGG <br />
+          ✅ <strong>Documentos:</strong> PDF, DOCX, TXT <br />
+        </p>
+      </section>
+
       {/* Seção de Conversão */}
       <section className="container mx-auto px-4 py-12">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
@@ -76,7 +91,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Rodapé Importado */}
+      {/* Rodapé */}
       <Footer />
       
     </div>
